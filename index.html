@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Family Tree</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #faf7f2;
+      --bg2:       #f2ede4;
+      --ink:       #1a1410;
+      --ink-soft:  #6b5d4f;
+      --gold:      #b08d57;
+      --gold-light:#d4b483;
+      --rule:      #d9cfc3;
+
+      /* Branch palette — one per grandchild branch */
+      --b1: #4a7c59;   /* deep sage */
+      --b2: #7b5ea7;   /* plum */
+      --b3: #c0622f;   /* terracotta */
+      --b4: #2e6e8e;   /* teal */
+      --b5: #8e4a5a;   /* rose */
+      --b6: #5a7a3a;   /* olive */
+      --b7: #6b4c2a;   /* umber */
+      --b8: #2d5f6b;   /* slate */
+
+      --connector: #c8b89a;
+      --card-radius: 6px;
+      --shadow: 0 2px 12px rgba(26,20,16,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Crimson Text', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 28px 48px 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      border-bottom: 3px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--gold-light);
+    }
+    header .subtitle {
+      font-style: italic;
+      color: #a89880;
+      font-size: 1rem;
+    }
+    .legend {
+      margin-left: auto;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: #c8b89a;
+      font-family: 'Crimson Text', serif;
+      font-style: italic;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      gap: 10px;
+      padding: 14px 48px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--rule);
+      align-items: center;
+    }
+    .controls button {
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 5px 14px;
+      font-family: 'Crimson Text', serif;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .controls button:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .controls span {
+      font-style: italic;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      margin-left: auto;
+    }
+
+    /* ── Tree canvas ── */
+    #tree-root {
+      padding: 40px 40px 80px;
+      overflow-x: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Generation container ── */
+    .generation {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ── Family group (children of one person) ── */
+    .family-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .children-row {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      position: relative;
+    }
+
+    .child-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── SVG connector layer ── */
+    .connector-wrap {
+      width: 100%;
+      position: relative;
+      overflow: visible;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--card-radius);
+      padding: 13px 18px 11px;
+      min-width: 148px;
+      max-width: 190px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      margin: 0 10px;
+      cursor: default;
+      transition: transform 0.18s, box-shadow 0.18s;
+      border-top-width: 3px;
+      animation: fadeIn 0.4s ease both;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26,20,16,0.14);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card .given {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      display: block;
+      line-height: 1.2;
+    }
+    .card .family-name {
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .card .dates {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      border-top: 1px solid var(--rule);
+      padding-top: 6px;
+      margin-top: 2px;
+      font-style: italic;
+    }
+    .card.root-card {
+      border-top-width: 4px;
+      padding: 16px 22px 14px;
+      min-width: 180px;
+    }
+    .card.root-card .given {
+      font-size: 1.25rem;
+    }
+    .card .deceased-badge {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 0.65rem;
+      color: var(--ink-soft);
+      font-style: italic;
+      opacity: 0.7;
+    }
+
+    /* ── Vertical connector lines via CSS ── */
+    .v-line-down {
+      width: 2px;
+      background: var(--connector);
+      flex-shrink: 0;
+    }
+    .v-line-up {
+      width: 2px;
+      background: var(--connector);
+      flex-shrink: 0;
+    }
+
+    /* ── Horizontal bar above siblings ── */
+    .h-bar-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .h-bar {
+      height: 2px;
+      background: var(--connector);
+      position: absolute;
+      top: 0;
+    }
+
+    /* ── Generation label ── */
+    .gen-label {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    /* ── Collapsed indicator ── */
+    .toggle-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--rule);
+      background: var(--bg2);
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2px auto 0;
+      transition: all 0.15s;
+      font-family: 'Crimson Text', serif;
+      flex-shrink: 0;
+    }
+    .toggle-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: #fff;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      background: var(--ink);
+      color: #a89880;
+      text-align: center;
+      padding: 12px;
+      font-size: 0.85rem;
+      font-style: italic;
+      border-top: 2px solid var(--gold);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .stats-bar strong { color: var(--gold-light); font-style: normal; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 id="header-name">Family Tree</h1>
+    <div class="subtitle" id="header-sub">Posterity &amp; Descendants</div>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<div class="controls">
+  <button onclick="expandAll()">Expand All</button>
+  <button onclick="collapseAll()">Collapse All</button>
+  <span id="stats-inline"></span>
+</div>
+
+<div id="tree-root"></div>
+
+<div class="stats-bar" id="stats-bar"></div>
+
+<script>
+// ── Branch color assignment ──────────────────────────────────────────────────
+const BRANCH_COLORS = [
+  'var(--b1)', 'var(--b2)', 'var(--b3)', 'var(--b4)',
+  'var(--b5)', 'var(--b6)', 'var(--b7)', 'var(--b8)'
+];
+const BRANCH_NAMES  = [
+  '#4a7c59','#7b5ea7','#c0622f','#2e6e8e',
+  '#8e4a5a','#5a7a3a','#6b4c2a','#2d5f6b'
+];
+
+let colorMap = {};   // id → color string
+let collapsed = {};  // id → boolean
+let DATA = null;
+
+// ── Assign branch colors from root's children ────────────────────────────────
+function assignColors(node, color) {
+  colorMap[node.id] = color;
+  (node.children || []).forEach(c => assignColors(c, color));
+}
+
+// ── Stats ────────────────────────────────────────────────────────────────────
+function countDescendants(node) {
+  let n = 0;
+  (node.children || []).forEach(c => { n += 1 + countDescendants(c); });
+  return n;
+}
+function maxDepth(node, d = 0) {
+  if (!(node.children || []).length) return d;
+  return Math.max(...node.children.map(c => maxDepth(c, d + 1)));
+}
+
+// ── Format dates ─────────────────────────────────────────────────────────────
+function formatDates(node) {
+  const b = node.born  || '';
+  const d = node.died  || '';
+  if (!b && !d) return '';
+  if (b && d)  return `${b} – ${d}`;
+  if (b)       return `b. ${b}`;
+  return `d. ${d}`;
+}
+
+// ── Build the tree DOM ───────────────────────────────────────────────────────
+const VGAP = 28;   // px of vertical line between card bottom and next row
+const CARD_H_ESTIMATE = 80; // rough card height for line sizing
+
+function buildNode(node, depth, isRoot) {
+  const color  = colorMap[node.id] || '#888';
+  const kids   = node.children || [];
+  const hasKids = kids.length > 0;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'family-group';
+  wrap.dataset.id = node.id;
+
+  // Card
+  const card = document.createElement('div');
+  card.className = isRoot ? 'card root-card' : 'card';
+  card.style.borderTopColor = color;
+  card.dataset.id = node.id;
+
+  if (node.died) {
+    const badge = document.createElement('span');
+    badge.className = 'deceased-badge';
+    badge.textContent = '✝';
+    card.appendChild(badge);
+  }
+
+  const given = document.createElement('span');
+  given.className = 'given';
+  given.textContent = node.name;
+  card.appendChild(given);
+
+  const ln = document.createElement('span');
+  ln.className = 'family-name';
+  ln.textContent = node.lastName || '';
+  card.appendChild(ln);
+
+  const dates = formatDates(node);
+  if (dates) {
+    const dt = document.createElement('div');
+    dt.className = 'dates';
+    dt.textContent = dates;
+    card.appendChild(dt);
+  }
+
+  wrap.appendChild(card);
+
+  if (!hasKids) return wrap;
+
+  // Toggle button
+  const toggle = document.createElement('button');
+  toggle.className = 'toggle-btn';
+  toggle.textContent = '−';
+  toggle.title = 'Collapse';
+  toggle.onclick = () => toggleNode(node.id);
+  toggle.dataset.toggleFor = node.id;
+  wrap.appendChild(toggle);
+
+  // Down line
+  const vDown = document.createElement('div');
+  vDown.className = 'v-line-down';
+  vDown.style.height = `${VGAP}px`;
+  vDown.dataset.connFor = node.id;
+  wrap.appendChild(vDown);
+
+  // Children container
+  const childrenWrap = document.createElement('div');
+  childrenWrap.dataset.childrenOf = node.id;
+
+  const childrenRow = document.createElement('div');
+  childrenRow.className = 'children-row';
+
+  kids.forEach((child, i) => {
+    const col = document.createElement('div');
+    col.className = 'child-col';
+
+    // Up line
+    const vUp = document.createElement('div');
+    vUp.className = 'v-line-up';
+    vUp.style.height = `${VGAP}px`;
+    col.appendChild(vUp);
+
+    col.appendChild(buildNode(child, depth + 1, false));
+    childrenRow.appendChild(col);
+  });
+
+  childrenWrap.appendChild(childrenRow);
+
+  // Horizontal bar — drawn via canvas-style after layout
+  wrap.appendChild(childrenWrap);
+
+  // Schedule h-bar after paint
+  requestAnimationFrame(() => drawHBar(node.id, childrenRow, vDown));
+
+  return wrap;
+}
+
+// ── Draw horizontal connector bar ────────────────────────────────────────────
+function drawHBar(parentId, childrenRow, vDownEl) {
+  // Remove old bar if any
+  const old = document.getElementById(`hbar-${parentId}`);
+  if (old) old.remove();
+
+  const cols = childrenRow.querySelectorAll(':scope > .child-col');
+  if (cols.length < 2) return; // single child — no bar needed
+
+  const rowRect = childrenRow.getBoundingClientRect();
+  const firstVUp = cols[0].querySelector('.v-line-up');
+  const lastVUp  = cols[cols.length - 1].querySelector('.v-line-up');
+  if (!firstVUp || !lastVUp) return;
+
+  const fr = firstVUp.getBoundingClientRect();
+  const lr = lastVUp.getBoundingClientRect();
+
+  const bar = document.createElement('div');
+  bar.id = `hbar-${parentId}`;
+  bar.style.position = 'absolute';
+  bar.style.height = '2px';
+  bar.style.background = 'var(--connector)';
+  bar.style.top = '0';
+  bar.style.pointerEvents = 'none';
+  bar.style.zIndex = '0';
+
+  const left  = fr.left - rowRect.left + fr.width / 2;
+  const right = lr.left - rowRect.left + lr.width / 2;
+  bar.style.left  = `${left}px`;
+  bar.style.width = `${right - left}px`;
+
+  childrenRow.style.position = 'relative';
+  childrenRow.appendChild(bar);
+}
+
+// ── Collapse / expand ────────────────────────────────────────────────────────
+function toggleNode(id) {
+  collapsed[id] = !collapsed[id];
+  const childrenWrap = document.querySelector(`[data-children-of="${id}"]`);
+  const vDown        = document.querySelector(`.v-line-down[data-conn-for="${id}"]`);
+  const btn          = document.querySelector(`[data-toggle-for="${id}"]`);
+  if (!childrenWrap) return;
+
+  if (collapsed[id]) {
+    childrenWrap.style.display = 'none';
+    if (vDown) vDown.style.display = 'none';
+    if (btn)   { btn.textContent = '+'; btn.title = 'Expand'; }
+  } else {
+    childrenWrap.style.display = '';
+    if (vDown) vDown.style.display = '';
+    if (btn)   { btn.textContent = '−'; btn.title = 'Collapse'; }
+    setTimeout(() => redrawAllBars(), 50);
+  }
+}
+
+function expandAll() {
+  document.querySelectorAll('[data-children-of]').forEach(el => {
+    el.style.display = '';
+    const id = el.dataset.childrenOf;
+    collapsed[id] = false;
+  });
+  document.querySelectorAll('.v-line-down').forEach(el => el.style.display = '');
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.textContent = '−'; btn.title = 'Collapse';
+  });
+  setTimeout(redrawAllBars, 50);
+}
+
+function collapseAll() {
+  document.querySelectorAll('[data-children-of]').forEach(el => {
+    const id = el.dataset.childrenOf;
+    if (el.closest('[data-id="root"]') && id === 'root') return; // keep root open
+    el.style.display = 'none';
+    collapsed[id] = true;
+  });
+  document.querySelectorAll('.v-line-down').forEach(el => {
+    const id = el.dataset.connFor;
+    if (id === 'root') return;
+    el.style.display = 'none';
+  });
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    if (btn.dataset.toggleFor === 'root') return;
+    btn.textContent = '+'; btn.title = 'Expand';
+  });
+}
+
+function redrawAllBars() {
+  document.querySelectorAll('.children-row').forEach(row => {
+    const parentGroup = row.closest('.family-group');
+    if (!parentGroup) return;
+    const id = parentGroup.dataset.id;
+    const vDown = parentGroup.querySelector(':scope > .v-line-down');
+    if (id && vDown) drawHBar(id, row, vDown);
+  });
+}
+
+// ── Build legend ─────────────────────────────────────────────────────────────
+function buildLegend(root) {
+  const legendEl = document.getElementById('legend');
+  (root.children || []).forEach((child, i) => {
+    const color = BRANCH_COLORS[i % BRANCH_COLORS.length];
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    const dot = document.createElement('div');
+    dot.className = 'legend-dot';
+    dot.style.background = BRANCH_NAMES[i % BRANCH_NAMES.length];
+    const label = document.createElement('span');
+    label.textContent = child.name;
+    item.appendChild(dot);
+    item.appendChild(label);
+    legendEl.appendChild(item);
+  });
+}
+
+// ── Main render ──────────────────────────────────────────────────────────────
+async function render() {
+  let data;
+  try {
+    const res = await fetch('family.json');
+    data = await res.json();
+  } catch(e) {
+    document.getElementById('tree-root').innerHTML =
+      '<p style="padding:40px;color:#c0622f;font-style:italic;">Could not load family.json — make sure it is in the same folder as index.html.</p>';
+    return;
+  }
+  DATA = data;
+
+  // Assign colors from root's children
+  (data.children || []).forEach((child, i) => {
+    assignColors(child, BRANCH_COLORS[i % BRANCH_COLORS.length]);
+  });
+  colorMap[data.id] = 'var(--gold)';
+
+  // Header
+  document.getElementById('header-name').textContent = `${data.name}'s Family`;
+  document.title = `${data.name} Family Tree`;
+
+  // Build tree
+  const treeRoot = document.getElementById('tree-root');
+  treeRoot.appendChild(buildNode(data, 0, true));
+
+  // Stats
+  const total = countDescendants(data);
+  const gens  = maxDepth(data);
+  const txt   = `${data.name} has <strong>${total}</strong> descendants across <strong>${gens}</strong> generations`;
+  document.getElementById('stats-bar').innerHTML = txt;
+  document.getElementById('stats-inline').innerHTML = txt;
+
+  buildLegend(data);
+
+  // Re-draw bars after full layout
+  setTimeout(redrawAllBars, 120);
+  window.addEventListener('resize', () => setTimeout(redrawAllBars, 60));
+}
+
+render();
+</script>
+</body>
+</html>

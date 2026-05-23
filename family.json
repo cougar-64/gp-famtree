@@ -1,0 +1,170 @@
+{
+  "id": "root",
+  "name": "Grandpa Harold",
+  "lastName": "Smith",
+  "born": "1938",
+  "died": "",
+  "children": [
+    {
+      "id": "c1",
+      "name": "Robert",
+      "lastName": "Smith",
+      "born": "1962",
+      "died": "",
+      "children": [
+        {
+          "id": "c1a",
+          "name": "Emily",
+          "lastName": "Smith",
+          "born": "1988",
+          "died": "",
+          "children": [
+            {
+              "id": "c1a1",
+              "name": "Lily",
+              "lastName": "Chen",
+              "born": "2015",
+              "died": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c1b",
+          "name": "James",
+          "lastName": "Smith",
+          "born": "1991",
+          "died": "",
+          "children": [
+            {
+              "id": "c1b1",
+              "name": "Noah",
+              "lastName": "Smith",
+              "born": "2018",
+              "died": "",
+              "children": []
+            },
+            {
+              "id": "c1b2",
+              "name": "Ava",
+              "lastName": "Smith",
+              "born": "2020",
+              "died": "",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "name": "Margaret",
+      "lastName": "Thompson",
+      "born": "1965",
+      "died": "",
+      "children": [
+        {
+          "id": "c2a",
+          "name": "Sarah",
+          "lastName": "Thompson",
+          "born": "1990",
+          "died": "",
+          "children": [
+            {
+              "id": "c2a1",
+              "name": "Ella",
+              "lastName": "Park",
+              "born": "2016",
+              "died": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c2b",
+          "name": "Daniel",
+          "lastName": "Thompson",
+          "born": "1993",
+          "died": "",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "name": "William",
+      "lastName": "Smith",
+      "born": "1968",
+      "died": "2019",
+      "children": [
+        {
+          "id": "c3a",
+          "name": "Olivia",
+          "lastName": "Smith",
+          "born": "1994",
+          "died": "",
+          "children": [
+            {
+              "id": "c3a1",
+              "name": "Mason",
+              "lastName": "Smith",
+              "born": "2019",
+              "died": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c3b",
+          "name": "Ethan",
+          "lastName": "Smith",
+          "born": "1997",
+          "died": "",
+          "children": []
+        },
+        {
+          "id": "c3c",
+          "name": "Grace",
+          "lastName": "Smith",
+          "born": "2000",
+          "died": "",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "name": "Patricia",
+      "lastName": "Rivera",
+      "born": "1971",
+      "died": "",
+      "children": [
+        {
+          "id": "c4a",
+          "name": "Sofia",
+          "lastName": "Rivera",
+          "born": "1996",
+          "died": "",
+          "children": []
+        },
+        {
+          "id": "c4b",
+          "name": "Lucas",
+          "lastName": "Rivera",
+          "born": "1999",
+          "died": "",
+          "children": [
+            {
+              "id": "c4b1",
+              "name": "Mia",
+              "lastName": "Rivera",
+              "born": "2022",
+              "died": "",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
