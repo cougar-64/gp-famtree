@@ -1,55 +1,324 @@
 {
   "id": "root",
-  "name": "Grandpa Harold",
-  "lastName": "Smith",
-  "born": "1938",
+  "name": "Grandpa Dee",
+  "lastName": "Stevenson",
+  "born": "",
+  "birthday": "",
   "died": "",
+  "spouses": [
+    {
+      "id": "root-s1",
+      "name": "Beverly",
+      "lastName": "Stevenson",
+      "born": "",
+      "birthday": "",
+      "died": ""
+    }
+  ],
   "children": [
     {
       "id": "c1",
-      "name": "Robert",
-      "lastName": "Smith",
-      "born": "1962",
+      "name": "Vicky",
+      "lastName": "Graden",
+      "born": "",
+      "birthday": "",
       "died": "",
+      "spouses": [
+        {
+          "id": "c1-s1",
+          "name": "Bill",
+          "lastName": "Graden",
+          "born": "",
+          "birthday": "",
+          "died": ""
+        }
+      ],
       "children": [
         {
           "id": "c1a",
-          "name": "Emily",
-          "lastName": "Smith",
-          "born": "1988",
+          "name": "Beth",
+          "lastName": "Hamilton",
+          "born": "",
+          "birthday": "",
           "died": "",
+          "spouses": [
+            {
+              "id": "c1a-s1",
+              "name": "Randy",
+              "lastName": "Hamilton",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": [
             {
               "id": "c1a1",
-              "name": "Lily",
-              "lastName": "Chen",
-              "born": "2015",
+              "name": "Jocelyn",
+              "lastName": "Hamilton",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1a2",
+              "name": "Jessica",
+              "lastName": "Hamilton",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [
+                {
+                  "id": "c1a2-s1",
+                  "name": "Aaron",
+                  "lastName": "",
+                  "born": "",
+                  "birthday": "",
+                  "died": ""
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": "c1a3",
+              "name": "Isaac",
+              "lastName": "Hamilton",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
               "children": []
             }
           ]
         },
         {
           "id": "c1b",
-          "name": "James",
-          "lastName": "Smith",
-          "born": "1991",
+          "name": "Alan",
+          "lastName": "Graden",
+          "born": "",
+          "birthday": "",
           "died": "",
+          "spouses": [
+            {
+              "id": "c1b-s1",
+              "name": "Liz",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": [
             {
               "id": "c1b1",
-              "name": "Noah",
-              "lastName": "Smith",
-              "born": "2018",
+              "name": "Lily",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
               "children": []
             },
             {
               "id": "c1b2",
-              "name": "Ava",
-              "lastName": "Smith",
-              "born": "2020",
+              "name": "Aliyah",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1b3",
+              "name": "Maya",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1b4",
+              "name": "Nathaniel",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1b5",
+              "name": "Miriam",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c1c",
+          "name": "Julie",
+          "lastName": "Johnson",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c1c-s1",
+              "name": "Walt",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c1c1",
+              "name": "Isaac",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1c2",
+              "name": "Thomas",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1c3",
+              "name": "Kyle",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1c4",
+              "name": "Carrie",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1c5",
+              "name": "Emily",
+              "lastName": "Johnson",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c1d",
+          "name": "Brian",
+          "lastName": "Graden",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c1d-s1",
+              "name": "Sarah",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c1d1",
+              "name": "Brie",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d2",
+              "name": "Alex",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d3",
+              "name": "Elijah",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d4",
+              "name": "Aimee",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d5",
+              "name": "Asher",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d6",
+              "name": "Jeremiah",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c1d7",
+              "name": "Gabriel",
+              "lastName": "Graden",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
               "children": []
             }
           ]
@@ -58,111 +327,498 @@
     },
     {
       "id": "c2",
-      "name": "Margaret",
-      "lastName": "Thompson",
-      "born": "1965",
+      "name": "Rodney",
+      "lastName": "Stevenson",
+      "born": "",
+      "birthday": "",
       "died": "",
+      "spouses": [
+        {
+          "id": "c2-s1",
+          "name": "JoLynn",
+          "lastName": "Stevenson",
+          "born": "",
+          "birthday": "",
+          "died": ""
+        }
+      ],
       "children": [
         {
           "id": "c2a",
-          "name": "Sarah",
-          "lastName": "Thompson",
-          "born": "1990",
+          "name": "Amber",
+          "lastName": "Stevenson",
+          "born": "",
+          "birthday": "",
           "died": "",
+          "spouses": [
+            {
+              "id": "c2a-s1",
+              "name": "Phil",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "c2b",
+          "name": "Rachel",
+          "lastName": "Limb",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c2b-s1",
+              "name": "Joseph",
+              "lastName": "Limb",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": [
             {
-              "id": "c2a1",
-              "name": "Ella",
-              "lastName": "Park",
-              "born": "2016",
+              "id": "c2b1",
+              "name": "Revin",
+              "lastName": "Limb",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c2b2",
+              "name": "Hazen",
+              "lastName": "Limb",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c2b3",
+              "name": "Evelyn",
+              "lastName": "Limb",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
               "children": []
             }
           ]
         },
         {
-          "id": "c2b",
-          "name": "Daniel",
-          "lastName": "Thompson",
-          "born": "1993",
+          "id": "c2c",
+          "name": "Richie",
+          "lastName": "Stevenson",
+          "born": "",
+          "birthday": "",
           "died": "",
+          "spouses": [],
+          "children": []
+        },
+        {
+          "id": "c2d",
+          "name": "Libby",
+          "lastName": "Stevenson",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c2d-s1",
+              "name": "Collin",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": []
         }
       ]
     },
     {
       "id": "c3",
-      "name": "William",
-      "lastName": "Smith",
-      "born": "1968",
-      "died": "2019",
+      "name": "Sue",
+      "lastName": "Tullis",
+      "born": "",
+      "birthday": "",
+      "died": "",
+      "spouses": [
+        {
+          "id": "c3-s1",
+          "name": "Mike",
+          "lastName": "Tullis",
+          "born": "",
+          "birthday": "",
+          "died": ""
+        }
+      ],
       "children": [
         {
           "id": "c3a",
-          "name": "Olivia",
-          "lastName": "Smith",
-          "born": "1994",
+          "name": "Cara",
+          "lastName": "Tullis",
+          "born": "",
+          "birthday": "",
           "died": "",
+          "spouses": [
+            {
+              "id": "c3a-s1",
+              "name": "Brad",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": [
             {
               "id": "c3a1",
-              "name": "Mason",
-              "lastName": "Smith",
-              "born": "2019",
+              "name": "Tyson",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c3a2",
+              "name": "Kyle",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c3a3",
+              "name": "Aiden",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            },
+            {
+              "id": "c3a4",
+              "name": "Cierra",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
               "children": []
             }
           ]
         },
         {
           "id": "c3b",
-          "name": "Ethan",
-          "lastName": "Smith",
-          "born": "1997",
+          "name": "Brandon",
+          "lastName": "Tullis",
+          "born": "",
+          "birthday": "",
           "died": "",
-          "children": []
+          "spouses": [
+            {
+              "id": "c3b-s1",
+              "name": "Samantha",
+              "lastName": "Tullis",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c3b1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
         },
         {
           "id": "c3c",
-          "name": "Grace",
-          "lastName": "Smith",
-          "born": "2000",
+          "name": "Daniel",
+          "lastName": "Tullis",
+          "born": "",
+          "birthday": "",
           "died": "",
-          "children": []
+          "spouses": [
+            {
+              "id": "c3c-s1",
+              "name": "Camille",
+              "lastName": "Tullis",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c3c1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c3d",
+          "name": "Johnny",
+          "lastName": "Tullis",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c3d-s1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c3d1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
         }
       ]
     },
     {
       "id": "c4",
-      "name": "Patricia",
-      "lastName": "Rivera",
-      "born": "1971",
+      "name": "Kelly",
+      "lastName": "Ashcroft",
+      "born": "",
+      "birthday": "",
       "died": "",
+      "spouses": [
+        {
+          "id": "c4-s1",
+          "name": "Craig",
+          "lastName": "Ashcroft",
+          "born": "",
+          "birthday": "",
+          "died": ""
+        }
+      ],
       "children": [
         {
           "id": "c4a",
-          "name": "Sofia",
-          "lastName": "Rivera",
-          "born": "1996",
+          "name": "Katie",
+          "lastName": "Ashcroft",
+          "born": "",
+          "birthday": "",
           "died": "",
-          "children": []
-        },
-        {
-          "id": "c4b",
-          "name": "Lucas",
-          "lastName": "Rivera",
-          "born": "1999",
-          "died": "",
+          "spouses": [
+            {
+              "id": "c4a-s1",
+              "name": "Jake",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
           "children": [
             {
-              "id": "c4b1",
-              "name": "Mia",
-              "lastName": "Rivera",
-              "born": "2022",
+              "id": "c4a1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
               "died": "",
+              "spouses": [],
               "children": []
             }
           ]
+        },
+        {
+          "id": "c4b",
+          "name": "Tyler",
+          "lastName": "Ashcroft",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c4b-s1",
+              "name": "Michaela",
+              "lastName": "Ashcroft",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c4b1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c4c",
+          "name": "Colton",
+          "lastName": "Ashcroft",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c4c-s1",
+              "name": "Alexis",
+              "lastName": "Ashcroft",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c4c1",
+              "name": "TBD",
+              "lastName": "",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c4d",
+          "name": "Hannah",
+          "lastName": "Davis",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c4d-s1",
+              "name": "Caleb",
+              "lastName": "Davis",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "c4e",
+          "name": "Luke",
+          "lastName": "Ashcroft",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "name": "Kim",
+      "lastName": "Bird",
+      "born": "",
+      "birthday": "",
+      "died": "",
+      "spouses": [
+        {
+          "id": "c5-s1",
+          "name": "Mark",
+          "lastName": "Bird",
+          "born": "",
+          "birthday": "",
+          "died": ""
+        }
+      ],
+      "children": [
+        {
+          "id": "c5a",
+          "name": "Samuel",
+          "lastName": "Bird",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [
+            {
+              "id": "c5a-s1",
+              "name": "Amelia",
+              "lastName": "Bird",
+              "born": "",
+              "birthday": "",
+              "died": ""
+            }
+          ],
+          "children": [
+            {
+              "id": "c5a1",
+              "name": "Eden",
+              "lastName": "Bird",
+              "born": "",
+              "birthday": "",
+              "died": "",
+              "spouses": [],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "c5b",
+          "name": "Jacob",
+          "lastName": "Bird",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [],
+          "children": []
+        },
+        {
+          "id": "c5c",
+          "name": "Kaylee",
+          "lastName": "Bird",
+          "born": "",
+          "birthday": "",
+          "died": "",
+          "spouses": [],
+          "children": []
         }
       ]
     }
