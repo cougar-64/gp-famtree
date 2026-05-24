@@ -8,31 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:        #faf7f2;
-      --bg2:       #f2ede4;
-      --ink:       #1a1410;
-      --ink-soft:  #6b5d4f;
-      --gold:      #b08d57;
-      --gold-light:#d4b483;
-      --rule:      #d9cfc3;
+      --bg:         #faf7f2;
+      --bg2:        #f2ede4;
+      --ink:        #1a1410;
+      --ink-soft:   #6b5d4f;
+      --gold:       #b08d57;
+      --gold-light: #d4b483;
+      --rule:       #d9cfc3;
+      --connector:  #c8b89a;
+      --spouse-line:#e8b4c0;
+      --card-radius:6px;
+      --shadow:     0 2px 12px rgba(26,20,16,0.10);
 
-      /* Branch palette — one per grandchild branch */
-      --b1: #4a7c59;   /* deep sage */
-      --b2: #7b5ea7;   /* plum */
-      --b3: #c0622f;   /* terracotta */
-      --b4: #2e6e8e;   /* teal */
-      --b5: #8e4a5a;   /* rose */
-      --b6: #5a7a3a;   /* olive */
-      --b7: #6b4c2a;   /* umber */
-      --b8: #2d5f6b;   /* slate */
-
-      --connector: #c8b89a;
-      --card-radius: 6px;
-      --shadow: 0 2px 12px rgba(26,20,16,0.10);
+      --b1:#4a7c59; --b2:#7b5ea7; --b3:#c0622f; --b4:#2e6e8e;
+      --b5:#8e4a5a; --b6:#5a7a3a; --b7:#6b4c2a; --b8:#2d5f6b;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       background: var(--bg);
       color: var(--ink);
@@ -40,305 +31,150 @@
       font-size: 17px;
       line-height: 1.5;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── Header ── */
     header {
       background: var(--ink);
       color: var(--bg);
-      padding: 28px 48px 24px;
+      padding: 22px 48px 18px;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 20px;
       border-bottom: 3px solid var(--gold);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
+      flex-shrink: 0;
     }
     header h1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
+      font-size: 1.7rem; font-weight: 700;
       color: var(--gold-light);
     }
-    header .subtitle {
-      font-style: italic;
-      color: #a89880;
-      font-size: 1rem;
-    }
-    .legend {
-      margin-left: auto;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      color: #c8b89a;
-      font-family: 'Crimson Text', serif;
-      font-style: italic;
-    }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+    header .subtitle { font-style: italic; color: #a89880; font-size: 0.95rem; }
+    .legend { margin-left: auto; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #c8b89a; font-style: italic; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Birthday banner ── */
+    #birthday-banner {
+      display: none;
+      background: linear-gradient(90deg,#7b5ea7 0%,#b08d57 50%,#4a7c59 100%);
+      color: #fff; text-align: center; padding: 8px 20px;
+      font-family: 'Playfair Display', serif; font-size: 1rem;
       flex-shrink: 0;
     }
+    #birthday-banner.active { display: block; }
 
     /* ── Controls ── */
     .controls {
-      display: flex;
-      gap: 10px;
-      padding: 14px 48px;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--rule);
-      align-items: center;
+      display: flex; gap: 10px; padding: 12px 48px;
+      background: var(--bg2); border-bottom: 1px solid var(--rule);
+      align-items: center; flex-shrink: 0; flex-wrap: wrap;
     }
     .controls button {
-      background: none;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      padding: 5px 14px;
-      font-family: 'Crimson Text', serif;
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      cursor: pointer;
-      transition: all 0.15s;
+      background: none; border: 1px solid var(--rule); border-radius: 4px;
+      padding: 4px 13px; font-family: 'Crimson Text', serif; font-size: 0.9rem;
+      color: var(--ink-soft); cursor: pointer; transition: all 0.15s;
     }
-    .controls button:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-    .controls span {
-      font-style: italic;
-      color: var(--ink-soft);
-      font-size: 0.9rem;
-    }
-    .zoom-group {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .zoom-group label {
-      font-style: italic;
-      color: var(--ink-soft);
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-    .zoom-group input[type=range] {
-      width: 110px;
-      accent-color: var(--gold);
-      cursor: pointer;
-    }
-    .zoom-val {
-      font-size: 0.85rem;
-      color: var(--gold);
-      font-family: 'Crimson Text', serif;
-      min-width: 36px;
-      text-align: right;
-    }
+    .controls button:hover { border-color: var(--gold); color: var(--gold); }
+    .controls span { font-style: italic; color: var(--ink-soft); font-size: 0.88rem; }
+    .zoom-group { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .zoom-group label { font-style: italic; color: var(--ink-soft); font-size: 0.9rem; white-space: nowrap; }
+    .zoom-group input[type=range] { width: 110px; accent-color: var(--gold); cursor: pointer; }
+    .zoom-val { font-size: 0.85rem; color: var(--gold); font-family: 'Crimson Text', serif; min-width: 36px; text-align: right; }
 
-    /* ── Tree canvas ── */
-    #tree-scroll {
-      overflow: auto;
-      width: 100%;
-      flex: 1;
-      padding-bottom: 48px; /* room above stats bar */
-    }
+    /* ── Scroll container ── */
+    #tree-scroll { overflow: auto; flex: 1; padding-bottom: 52px; }
     #tree-root {
       padding: 40px 60px 80px;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 100%;
-      transform-origin: top center;
+      display: inline-flex; flex-direction: column; align-items: center;
+      min-width: 100%; transform-origin: top center;
     }
 
-    /* ── Generation container ── */
-    .generation {
-      display: flex;
-      gap: 0;
-      justify-content: center;
-      position: relative;
+    /* ── Family unit (person + spouses side by side, then children below) ── */
+    .family-group { display: flex; flex-direction: column; align-items: center; }
+
+    /* Couple row: card ♥ card ♥ card … */
+    .couple-row { display: flex; align-items: center; gap: 0; }
+
+    /* Marriage connector between two cards */
+    .marriage-connector {
+      display: flex; align-items: center; gap: 0;
+      padding: 0 4px; flex-shrink: 0;
+    }
+    .marriage-line { width: 18px; height: 2px; background: var(--spouse-line); }
+    .marriage-heart {
+      font-size: 0.75rem; color: var(--spouse-line);
+      line-height: 1; padding: 0 2px; flex-shrink: 0;
+      user-select: none;
     }
 
-    /* ── Family group (children of one person) ── */
-    .family-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .children-row {
-      display: flex;
-      gap: 0;
-      justify-content: center;
-      position: relative;
-    }
-
-    .child-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* ── SVG connector layer ── */
-    .connector-wrap {
-      width: 100%;
-      position: relative;
-      overflow: visible;
-    }
+    /* Children section */
+    .children-row { display: flex; gap: 0; justify-content: center; position: relative; }
+    .child-col { display: flex; flex-direction: column; align-items: center; }
 
     /* ── Card ── */
     .card {
-      position: relative;
-      background: #fff;
-      border: 1px solid var(--rule);
+      position: relative; background: #fff;
+      border: 1px solid var(--rule); border-top-width: 3px;
       border-radius: var(--card-radius);
-      padding: 13px 18px 11px;
-      min-width: 148px;
-      max-width: 190px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      margin: 0 10px;
-      cursor: default;
+      padding: 11px 16px 10px;
+      min-width: 140px; max-width: 182px;
+      text-align: center; box-shadow: var(--shadow);
+      margin: 0 8px; cursor: default;
       transition: transform 0.18s, box-shadow 0.18s;
-      border-top-width: 3px;
-      animation: fadeIn 0.4s ease both;
+      animation: fadeIn 0.35s ease both;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(26,20,16,0.14);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,20,16,0.14); }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+
+    .card.root-card { border-top-width: 4px; padding: 14px 20px 12px; min-width: 170px; }
+    .card.root-card .given { font-size: 1.2rem; }
+
+    /* Spouse cards get a dashed border-top to distinguish */
+    .card.spouse-card { border-top-style: dashed; opacity: 0.92; }
 
     .card .given {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--ink);
-      display: block;
-      line-height: 1.2;
+      font-family: 'Playfair Display', serif; font-size: 1rem;
+      font-weight: 600; color: var(--ink); display: block; line-height: 1.2;
     }
     .card .family-name {
-      font-size: 0.82rem;
-      color: var(--ink-soft);
-      font-style: italic;
-      display: block;
-      margin-bottom: 6px;
+      font-size: 0.8rem; color: var(--ink-soft); font-style: italic;
+      display: block; margin-bottom: 5px;
     }
     .card .dates {
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      border-top: 1px solid var(--rule);
-      padding-top: 6px;
-      margin-top: 2px;
+      font-size: 0.76rem; color: var(--ink-soft);
+      border-top: 1px solid var(--rule); padding-top: 5px; margin-top: 2px;
       font-style: italic;
-    }
-    .card.root-card {
-      border-top-width: 4px;
-      padding: 16px 22px 14px;
-      min-width: 180px;
-    }
-    .card.root-card .given {
-      font-size: 1.25rem;
     }
     .card .deceased-badge {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      font-size: 0.65rem;
-      color: var(--ink-soft);
-      font-style: italic;
-      opacity: 0.7;
+      position: absolute; top: 5px; right: 7px;
+      font-size: 0.62rem; color: var(--ink-soft); opacity: 0.65;
     }
 
-    /* ── Vertical connector lines via CSS ── */
-    .v-line-down {
-      width: 2px;
-      background: var(--connector);
-      flex-shrink: 0;
-    }
-    .v-line-up {
-      width: 2px;
-      background: var(--connector);
-      flex-shrink: 0;
-    }
+    /* ── Connector lines ── */
+    .v-line-down { width: 2px; background: var(--connector); flex-shrink: 0; }
+    .v-line-up   { width: 2px; background: var(--connector); flex-shrink: 0; }
 
-    /* ── Horizontal bar above siblings ── */
-    .h-bar-wrap {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    .h-bar {
-      height: 2px;
-      background: var(--connector);
-      position: absolute;
-      top: 0;
-    }
-
-    /* ── Generation label ── */
-    .gen-label {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 0.78rem;
-      color: var(--gold);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      text-align: center;
-      opacity: 0.8;
-    }
-
-    /* ── Collapsed indicator ── */
+    /* ── Toggle button ── */
     .toggle-btn {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1.5px solid var(--rule);
-      background: var(--bg2);
-      color: var(--ink-soft);
-      font-size: 13px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 2px auto 0;
-      transition: all 0.15s;
-      font-family: 'Crimson Text', serif;
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid var(--rule); background: var(--bg2);
+      color: var(--ink-soft); font-size: 12px; line-height: 1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      margin: 2px auto 0; transition: all 0.15s; font-family: 'Crimson Text', serif;
       flex-shrink: 0;
     }
-    .toggle-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: #fff;
-    }
+    .toggle-btn:hover { border-color: var(--gold); color: var(--gold); background: #fff; }
 
     /* ── Stats bar ── */
     .stats-bar {
-      background: var(--ink);
-      color: #a89880;
-      text-align: center;
-      padding: 12px;
-      font-size: 0.85rem;
-      font-style: italic;
+      background: var(--ink); color: #a89880; text-align: center;
+      padding: 11px; font-size: 0.83rem; font-style: italic;
       border-top: 2px solid var(--gold);
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
     }
     .stats-bar strong { color: var(--gold-light); font-style: normal; }
   </style>
@@ -348,10 +184,12 @@
 <header>
   <div>
     <h1 id="header-name">Family Tree</h1>
-    <div class="subtitle" id="header-sub">Posterity &amp; Descendants</div>
+    <div class="subtitle">Posterity &amp; Descendants</div>
   </div>
   <div class="legend" id="legend"></div>
 </header>
+
+<div id="birthday-banner"><span id="birthday-text"></span></div>
 
 <div class="controls">
   <button onclick="expandAll()">Expand All</button>
@@ -365,33 +203,26 @@
 </div>
 
 <div id="tree-scroll">
-<div id="tree-root"></div>
+  <div id="tree-root"></div>
 </div>
 
 <div class="stats-bar" id="stats-bar"></div>
 
 <script>
-// ── Branch color assignment ──────────────────────────────────────────────────
-const BRANCH_COLORS = [
-  'var(--b1)', 'var(--b2)', 'var(--b3)', 'var(--b4)',
-  'var(--b5)', 'var(--b6)', 'var(--b7)', 'var(--b8)'
-];
-const BRANCH_NAMES  = [
-  '#4a7c59','#7b5ea7','#c0622f','#2e6e8e',
-  '#8e4a5a','#5a7a3a','#6b4c2a','#2d5f6b'
-];
+const BRANCH_COLORS = ['var(--b1)','var(--b2)','var(--b3)','var(--b4)','var(--b5)','var(--b6)','var(--b7)','var(--b8)'];
+const BRANCH_HEX    = ['#4a7c59','#7b5ea7','#c0622f','#2e6e8e','#8e4a5a','#5a7a3a','#6b4c2a','#2d5f6b'];
+const VGAP = 26;
 
-let colorMap = {};   // id → color string
-let collapsed = {};  // id → boolean
-let DATA = null;
+let colorMap = {}, collapsed = {};
 
-// ── Assign branch colors from root's children ────────────────────────────────
+// ── Color assignment ──────────────────────────────────────────────────────────
 function assignColors(node, color) {
   colorMap[node.id] = color;
+  (node.spouses || []).forEach(s => { if (s.id) colorMap[s.id] = color; });
   (node.children || []).forEach(c => assignColors(c, color));
 }
 
-// ── Stats ────────────────────────────────────────────────────────────────────
+// ── Stats helpers ─────────────────────────────────────────────────────────────
 function countDescendants(node) {
   let n = 0;
   (node.children || []).forEach(c => { n += 1 + countDescendants(c); });
@@ -402,36 +233,22 @@ function maxDepth(node, d = 0) {
   return Math.max(...node.children.map(c => maxDepth(c, d + 1)));
 }
 
-// ── Format dates ─────────────────────────────────────────────────────────────
+// ── Date formatting ───────────────────────────────────────────────────────────
 function formatDates(node) {
-  const b = node.born  || '';
-  const d = node.died  || '';
+  const b = node.born || '', d = node.died || '';
   if (!b && !d) return '';
   if (b && d)  return `${b} – ${d}`;
   if (b)       return `b. ${b}`;
   return `d. ${d}`;
 }
 
-// ── Build the tree DOM ───────────────────────────────────────────────────────
-const VGAP = 28;   // px of vertical line between card bottom and next row
-const CARD_H_ESTIMATE = 80; // rough card height for line sizing
-
-function buildNode(node, depth, isRoot) {
-  const color  = colorMap[node.id] || '#888';
-  const kids   = node.children || [];
-  const hasKids = kids.length > 0;
-
-  const wrap = document.createElement('div');
-  wrap.className = 'family-group';
-  wrap.dataset.id = node.id;
-
-  // Card
+// ── Build a single person card ────────────────────────────────────────────────
+function buildCard(person, isRoot, isSpouse, branchColor) {
   const card = document.createElement('div');
-  card.className = isRoot ? 'card root-card' : 'card';
-  card.style.borderTopColor = color;
-  card.dataset.id = node.id;
+  card.className = ['card', isRoot ? 'root-card' : '', isSpouse ? 'spouse-card' : ''].filter(Boolean).join(' ');
+  card.style.borderTopColor = branchColor || colorMap[person.id] || '#888';
 
-  if (node.died) {
+  if (person.died) {
     const badge = document.createElement('span');
     badge.className = 'deceased-badge';
     badge.textContent = '✝';
@@ -440,23 +257,57 @@ function buildNode(node, depth, isRoot) {
 
   const given = document.createElement('span');
   given.className = 'given';
-  given.textContent = node.name;
+  given.textContent = person.name || '—';
   card.appendChild(given);
 
   const ln = document.createElement('span');
   ln.className = 'family-name';
-  ln.textContent = node.lastName || '';
+  ln.textContent = person.lastName || '';
   card.appendChild(ln);
 
-  const dates = formatDates(node);
+  const dates = formatDates(person);
   if (dates) {
     const dt = document.createElement('div');
     dt.className = 'dates';
     dt.textContent = dates;
     card.appendChild(dt);
   }
+  return card;
+}
 
-  wrap.appendChild(card);
+// ── Marriage connector widget ─────────────────────────────────────────────────
+function buildMarriageConnector() {
+  const mc = document.createElement('div');
+  mc.className = 'marriage-connector';
+  mc.innerHTML = '<div class="marriage-line"></div><span class="marriage-heart">♥</span><div class="marriage-line"></div>';
+  return mc;
+}
+
+// ── Build node (person + spouses + children) ──────────────────────────────────
+function buildNode(node, depth, isRoot) {
+  const color   = colorMap[node.id] || 'var(--gold)';
+  const kids    = node.children || [];
+  const spouses = node.spouses  || [];
+  const hasKids = kids.length > 0;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'family-group';
+  wrap.dataset.id = node.id;
+
+  // ── Couple row: primary card + spouse cards ──
+  const coupleRow = document.createElement('div');
+  coupleRow.className = 'couple-row';
+
+  coupleRow.appendChild(buildCard(node, isRoot, false, color));
+
+  spouses.forEach(spouse => {
+    coupleRow.appendChild(buildMarriageConnector());
+    // Spouse card uses same branch color but dashed top
+    const sc = buildCard(spouse, false, true, color);
+    coupleRow.appendChild(sc);
+  });
+
+  wrap.appendChild(coupleRow);
 
   if (!hasKids) return wrap;
 
@@ -483,41 +334,34 @@ function buildNode(node, depth, isRoot) {
   const childrenRow = document.createElement('div');
   childrenRow.className = 'children-row';
 
-  kids.forEach((child, i) => {
+  kids.forEach(child => {
     const col = document.createElement('div');
     col.className = 'child-col';
-
-    // Up line
     const vUp = document.createElement('div');
     vUp.className = 'v-line-up';
     vUp.style.height = `${VGAP}px`;
     col.appendChild(vUp);
-
     col.appendChild(buildNode(child, depth + 1, false));
     childrenRow.appendChild(col);
   });
 
   childrenWrap.appendChild(childrenRow);
-
-  // Horizontal bar — drawn via canvas-style after layout
   wrap.appendChild(childrenWrap);
 
-  // Schedule h-bar after paint
-  requestAnimationFrame(() => drawHBar(node.id, childrenRow, vDown));
+  requestAnimationFrame(() => drawHBar(node.id, childrenRow));
 
   return wrap;
 }
 
-// ── Draw horizontal connector bar ────────────────────────────────────────────
-function drawHBar(parentId, childrenRow, vDownEl) {
-  // Remove old bar if any
+// ── Horizontal connector bar ──────────────────────────────────────────────────
+function drawHBar(parentId, childrenRow) {
   const old = document.getElementById(`hbar-${parentId}`);
   if (old) old.remove();
 
   const cols = childrenRow.querySelectorAll(':scope > .child-col');
-  if (cols.length < 2) return; // single child — no bar needed
+  if (cols.length < 2) return;
 
-  const rowRect = childrenRow.getBoundingClientRect();
+  const rowRect  = childrenRow.getBoundingClientRect();
   const firstVUp = cols[0].querySelector('.v-line-up');
   const lastVUp  = cols[cols.length - 1].querySelector('.v-line-up');
   if (!firstVUp || !lastVUp) return;
@@ -527,13 +371,7 @@ function drawHBar(parentId, childrenRow, vDownEl) {
 
   const bar = document.createElement('div');
   bar.id = `hbar-${parentId}`;
-  bar.style.position = 'absolute';
-  bar.style.height = '2px';
-  bar.style.background = 'var(--connector)';
-  bar.style.top = '0';
-  bar.style.pointerEvents = 'none';
-  bar.style.zIndex = '0';
-
+  bar.style.cssText = `position:absolute;height:2px;background:var(--connector);top:0;pointer-events:none;z-index:0;`;
   const left  = fr.left - rowRect.left + fr.width / 2;
   const right = lr.left - rowRect.left + lr.width / 2;
   bar.style.left  = `${left}px`;
@@ -543,86 +381,117 @@ function drawHBar(parentId, childrenRow, vDownEl) {
   childrenRow.appendChild(bar);
 }
 
-// ── Collapse / expand ────────────────────────────────────────────────────────
+// ── Collapse / Expand ─────────────────────────────────────────────────────────
 function toggleNode(id) {
   collapsed[id] = !collapsed[id];
-  const childrenWrap = document.querySelector(`[data-children-of="${id}"]`);
-  const vDown        = document.querySelector(`.v-line-down[data-conn-for="${id}"]`);
-  const btn          = document.querySelector(`[data-toggle-for="${id}"]`);
-  if (!childrenWrap) return;
-
+  const cw   = document.querySelector(`[data-children-of="${id}"]`);
+  const vd   = document.querySelector(`.v-line-down[data-conn-for="${id}"]`);
+  const btn  = document.querySelector(`[data-toggle-for="${id}"]`);
+  if (!cw) return;
   if (collapsed[id]) {
-    childrenWrap.style.display = 'none';
-    if (vDown) vDown.style.display = 'none';
-    if (btn)   { btn.textContent = '+'; btn.title = 'Expand'; }
+    cw.style.display = 'none';
+    if (vd)  vd.style.display  = 'none';
+    if (btn) { btn.textContent = '+'; btn.title = 'Expand'; }
   } else {
-    childrenWrap.style.display = '';
-    if (vDown) vDown.style.display = '';
-    if (btn)   { btn.textContent = '−'; btn.title = 'Collapse'; }
-    setTimeout(() => redrawAllBars(), 50);
+    cw.style.display = '';
+    if (vd)  vd.style.display  = '';
+    if (btn) { btn.textContent = '−'; btn.title = 'Collapse'; }
+    setTimeout(redrawAllBars, 50);
   }
 }
 
 function expandAll() {
   document.querySelectorAll('[data-children-of]').forEach(el => {
-    el.style.display = '';
-    const id = el.dataset.childrenOf;
-    collapsed[id] = false;
+    el.style.display = ''; collapsed[el.dataset.childrenOf] = false;
   });
   document.querySelectorAll('.v-line-down').forEach(el => el.style.display = '');
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.textContent = '−'; btn.title = 'Collapse';
-  });
+  document.querySelectorAll('.toggle-btn').forEach(b => { b.textContent = '−'; b.title = 'Collapse'; });
   setTimeout(redrawAllBars, 50);
 }
 
 function collapseAll() {
   document.querySelectorAll('[data-children-of]').forEach(el => {
     const id = el.dataset.childrenOf;
-    if (el.closest('[data-id="root"]') && id === 'root') return; // keep root open
-    el.style.display = 'none';
-    collapsed[id] = true;
+    if (id === 'root') return;
+    el.style.display = 'none'; collapsed[id] = true;
   });
   document.querySelectorAll('.v-line-down').forEach(el => {
-    const id = el.dataset.connFor;
-    if (id === 'root') return;
-    el.style.display = 'none';
+    if (el.dataset.connFor !== 'root') el.style.display = 'none';
   });
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    if (btn.dataset.toggleFor === 'root') return;
-    btn.textContent = '+'; btn.title = 'Expand';
+  document.querySelectorAll('.toggle-btn').forEach(b => {
+    if (b.dataset.toggleFor !== 'root') { b.textContent = '+'; b.title = 'Expand'; }
   });
 }
 
 function redrawAllBars() {
   document.querySelectorAll('.children-row').forEach(row => {
-    const parentGroup = row.closest('.family-group');
-    if (!parentGroup) return;
-    const id = parentGroup.dataset.id;
-    const vDown = parentGroup.querySelector(':scope > .v-line-down');
-    if (id && vDown) drawHBar(id, row, vDown);
+    const pg = row.closest('.family-group');
+    if (pg) drawHBar(pg.dataset.id, row);
   });
 }
 
-// ── Build legend ─────────────────────────────────────────────────────────────
+// ── Zoom ──────────────────────────────────────────────────────────────────────
+function setZoom(val) {
+  const pct = parseInt(val);
+  document.getElementById('tree-root').style.transform = `scale(${pct/100})`;
+  document.getElementById('zoom-val').textContent = `${pct}%`;
+  setTimeout(redrawAllBars, 60);
+}
+
+// ── Legend ────────────────────────────────────────────────────────────────────
 function buildLegend(root) {
-  const legendEl = document.getElementById('legend');
+  const el = document.getElementById('legend');
   (root.children || []).forEach((child, i) => {
-    const color = BRANCH_COLORS[i % BRANCH_COLORS.length];
     const item = document.createElement('div');
     item.className = 'legend-item';
     const dot = document.createElement('div');
     dot.className = 'legend-dot';
-    dot.style.background = BRANCH_NAMES[i % BRANCH_NAMES.length];
+    dot.style.background = BRANCH_HEX[i % BRANCH_HEX.length];
     const label = document.createElement('span');
     label.textContent = child.name;
-    item.appendChild(dot);
-    item.appendChild(label);
-    legendEl.appendChild(item);
+    item.appendChild(dot); item.appendChild(label);
+    el.appendChild(item);
   });
 }
 
-// ── Main render ──────────────────────────────────────────────────────────────
+// ── Birthday check ────────────────────────────────────────────────────────────
+function collectAll(node, arr = []) {
+  arr.push(node);
+  (node.spouses  || []).forEach(s => arr.push(s));
+  (node.children || []).forEach(c => collectAll(c, arr));
+  return arr;
+}
+
+function checkBirthdays(root) {
+  const today = new Date();
+  const tm = today.getMonth() + 1, td = today.getDate();
+  const celebrants = [];
+
+  collectAll(root).forEach(person => {
+    if (!person.birthday) return;
+    const raw = person.birthday.trim();
+    let month, day;
+    const iso = raw.match(/(?:\d{4}[-/])?(\d{1,2})[-/](\d{1,2})/);
+    if (iso) { month = parseInt(iso[1]); day = parseInt(iso[2]); }
+    else {
+      const mNames = ['january','february','march','april','may','june','july','august','september','october','november','december'];
+      const txt = raw.match(/([a-zA-Z]+)\s+(\d{1,2})/);
+      if (txt) { const mi = mNames.findIndex(m => m.startsWith(txt[1].toLowerCase())); if (mi !== -1) { month = mi+1; day = parseInt(txt[2]); } }
+    }
+    if (month === tm && day === td) celebrants.push(person.name);
+  });
+
+  if (!celebrants.length) return;
+  const cake = '🎂';
+  let msg;
+  if (celebrants.length === 1) msg = `${cake} Happy Birthday, ${celebrants[0]}! ${cake}`;
+  else if (celebrants.length === 2) msg = `${cake} Happy Birthday, ${celebrants[0]} & ${celebrants[1]}! ${cake}`;
+  else { const last = celebrants.pop(); msg = `${cake} Happy Birthday, ${celebrants.join(', ')} & ${last}! ${cake}`; }
+  document.getElementById('birthday-text').textContent = msg;
+  document.getElementById('birthday-banner').classList.add('active');
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
 async function render() {
   let data;
   try {
@@ -633,23 +502,15 @@ async function render() {
       '<p style="padding:40px;color:#c0622f;font-style:italic;">Could not load family.json — make sure it is in the same folder as index.html.</p>';
     return;
   }
-  DATA = data;
 
-  // Assign colors from root's children
-  (data.children || []).forEach((child, i) => {
-    assignColors(child, BRANCH_COLORS[i % BRANCH_COLORS.length]);
-  });
+  (data.children || []).forEach((child, i) => assignColors(child, BRANCH_COLORS[i % BRANCH_COLORS.length]));
   colorMap[data.id] = 'var(--gold)';
 
-  // Header
   document.getElementById('header-name').textContent = `${data.name}'s Family`;
   document.title = `${data.name} Family Tree`;
 
-  // Build tree
-  const treeRoot = document.getElementById('tree-root');
-  treeRoot.appendChild(buildNode(data, 0, true));
+  document.getElementById('tree-root').appendChild(buildNode(data, 0, true));
 
-  // Stats
   const total = countDescendants(data);
   const gens  = maxDepth(data);
   const txt   = `${data.name} has <strong>${total}</strong> descendants across <strong>${gens}</strong> generations`;
@@ -657,18 +518,10 @@ async function render() {
   document.getElementById('stats-inline').innerHTML = txt;
 
   buildLegend(data);
+  checkBirthdays(data);
 
-  // Re-draw bars after full layout
   setTimeout(redrawAllBars, 120);
   window.addEventListener('resize', () => setTimeout(redrawAllBars, 60));
-}
-
-function setZoom(val) {
-  const pct = parseInt(val);
-  document.getElementById('tree-root').style.transform = `scale(${pct/100})`;
-  document.getElementById('zoom-val').textContent = `${pct}%`;
-  // After scaling, redraw bars so positions stay accurate
-  setTimeout(redrawAllBars, 60);
 }
 
 render();
